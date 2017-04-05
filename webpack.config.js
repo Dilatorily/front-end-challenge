@@ -48,7 +48,7 @@ module.exports = {
   entry,
   output: {
     path: path.join(__dirname, 'docs'),
-    publicPath: '/',
+    publicPath: isDev ? '/' : '/front-end-challenge/',
     filename: '[name].[hash].js',
   },
   devtool: isDev ? 'eval-source-map' : false,
@@ -61,8 +61,8 @@ module.exports = {
     ],
   },
   devServer: {
-    port,
     compress: true,
     hot: true,
+    port,
   },
 };
