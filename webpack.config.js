@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000;
 const baseEntry = [
   'babel-polyfill',
   'whatwg-fetch',
+  'normalize.css',
+  './src/assets/reset.css',
   './src/index.jsx',
 ];
 const devEntry = [
@@ -59,6 +61,7 @@ module.exports = {
     rules: [
       { test: /\.jsx?$/, loader: 'eslint-loader', enforce: 'pre' },
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.css$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }] },
     ],
   },
   devServer: {

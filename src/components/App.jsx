@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import DonutChart from './DonutChart';
+import TransactionHistory from './TransactionHistory';
 import { fetchTransactions } from '../reducers/transactions';
 
 class App extends React.Component {
@@ -9,7 +11,12 @@ class App extends React.Component {
   }
 
   render() {
-    return <h1>Hello World!</h1>;
+    return (
+      <div>
+        <DonutChart />
+        <TransactionHistory />
+      </div>
+    );
   }
 }
 
