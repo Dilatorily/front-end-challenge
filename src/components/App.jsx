@@ -5,6 +5,13 @@ import DonutChart from './DonutChart';
 import TransactionHistory from './TransactionHistory';
 import { fetchTransactions } from '../reducers/transactions';
 
+const styles = {
+  container: {
+    height: '100vh',
+    overflow: 'hidden',
+  },
+};
+
 class App extends React.Component {
   componentWillMount() {
     this.props.fetchTransactions();
@@ -12,7 +19,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={styles.container}>
         <DonutChart />
         <TransactionHistory />
       </div>

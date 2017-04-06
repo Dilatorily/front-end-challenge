@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import format from 'date-fns/format';
 
 import TransactionEntry from './TransactionEntry';
 
 const mapStateToProps = (state, props) => ({
+  accounts: state.ui.filters.accounts,
   transactions: Object.values(state.transactions)
     .filter(transaction => transaction.transactionDate === props.date),
 });
@@ -15,23 +17,32 @@ const styles = {
     listStyleType: 'none',
   },
   date: {
-    borderBottom: '1px solid black',
+    color: '#303030',
+    backgroundColor: '#E5E5E5',
+    padding: '5px 10px',
+    fontSize: 14,
+    fontWeigth: 300,
   },
 };
 
-const TransactionDay = ({ date, transactions }) => (
+const TransactionDay = ({ accounts, date, transactions }) => (
   <ul style={styles.list}>
-    <li style={styles.date}>{date}</li>
+    <li style={styles.date} title={format(date, 'MMMM Do, YYYY')}>
+      {format(date, 'MMMM Do, YYYY')}
+    </li>
     {
-      transactions.map((transaction, index) => {
-        const key = `${date}-${index}`;
-        return <TransactionEntry key={key} transaction={transaction} />;
-      })
+      transactions
+        .filter(transaction => accounts.includes(transaction.accountId))
+        .map((transaction, index) => {
+          const key = `${date}-${index}`;
+          return <TransactionEntry key={key} transaction={transaction} />;
+        })
     }
   </ul>
 );
 
 TransactionDay.propTypes = {
+  accounts: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   date: React.PropTypes.string.isRequired,
   transactions: React.PropTypes.arrayOf(React.PropTypes.shape({
     accountId: React.PropTypes.string,

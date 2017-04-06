@@ -23,5 +23,11 @@ export default (state = INITIAL_STATE, action = {}) => {
   }
 };
 
-export const updateCategories = payload => ({ type: UPDATE_CATEGORIES, payload });
+export const updateCategories = transactions => ({
+  type: UPDATE_CATEGORIES,
+  payload: [
+    ...transactions.categories,
+    ...transactions.transactionData.transactions.map(transaction => transaction.category),
+  ].filter((category, index, categories) => category && categories.indexOf(category) === index),
+});
 export const resetCATEGORIES = () => ({ type: RESET_CATEGORIES });

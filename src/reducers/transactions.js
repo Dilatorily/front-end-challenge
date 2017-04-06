@@ -1,5 +1,6 @@
 import { updateAccounts } from './accounts';
 import { updateCategories } from './categories';
+import { setAccountFilter } from './ui';
 
 const UPDATE_TRANSACTIONS = 'front-end-challenge/transactions/GET_TRANSACTIONS';
 const RESET_TRANSACTIONS = 'front-end-challenge/transactions/RESET_TRANSACTIONS';
@@ -25,14 +26,17 @@ export default (state = INITIAL_STATE, action = {}) => {
 };
 
 const updateTransactions = payload => ({ type: UPDATE_TRANSACTIONS, payload });
-export const fetchTransactions = (url = TRANSACTIONS_API) => async (dispatch) => {
+export const fetchTransactions = (url = TRANSACTIONS_API) => async (dispatch, getState) => {
   const transactions = await fetch(url).then(response => response.json());
 
-  return Promise.all([
+  await Promise.all([
     dispatch(updateTransactions(transactions.transactionData.transactions)),
-    dispatch(updateAccounts(transactions.accounts)),
-    dispatch(updateCategories(transactions.categories)),
+    dispatch(updateAccounts(transactions)),
+    dispatch(updateCategories(transactions)),
   ]);
+
+  const accounts = Object.keys(getState().accounts);
+  return dispatch(setAccountFilter(accounts));
 };
 
 export const resetTransactions = () => ({ type: RESET_TRANSACTIONS });

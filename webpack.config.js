@@ -11,6 +11,7 @@ const baseEntry = [
   'whatwg-fetch',
   'normalize.css',
   './src/assets/reset.css',
+  'font-awesome/css/font-awesome.css',
   './src/index.jsx',
 ];
 const devEntry = [
@@ -26,6 +27,7 @@ const basePlugins = [
   new HtmlWebpackPlugin({
     template: 'src/index.html',
     inject: 'body',
+    favicon: 'src/assets/favicon.ico',
     minify: { collapseWhitespace: true },
   }),
 ];
@@ -62,6 +64,7 @@ module.exports = {
       { test: /\.jsx?$/, loader: 'eslint-loader', enforce: 'pre' },
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.css$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }] },
+      { test: /\.(woff2?|ttf|eot|svg)(\?.*)?$/, loader: 'url-loader', options: { limit: 10000 } },
     ],
   },
   devServer: {

@@ -20,5 +20,14 @@ export default (state = INITIAL_STATE, action = {}) => {
   }
 };
 
-export const updateAccounts = payload => ({ type: UPDATE_ACCOUNTS, payload });
+export const updateAccounts = transactions => ({
+  type: UPDATE_ACCOUNTS,
+  payload: [
+    ...transactions.accounts,
+    ...transactions.transactionData.transactions
+      .map(transaction => ({ accountId: transaction.accountId })),
+  ].filter((account, index, accounts) =>
+    accounts.findIndex(a => a.accountId === account.accountId) === index,
+  ),
+});
 export const resetAccounts = () => ({ type: RESET_ACCOUNTS });
