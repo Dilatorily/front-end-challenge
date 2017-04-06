@@ -1,5 +1,5 @@
-// import { updateAccounts } from './accounts';
-// import { updateCategories } from './categories';
+import { updateAccounts } from './accounts';
+import { updateCategories } from './categories';
 
 const UPDATE_TRANSACTIONS = 'front-end-challenge/transactions/GET_TRANSACTIONS';
 const RESET_TRANSACTIONS = 'front-end-challenge/transactions/RESET_TRANSACTIONS';
@@ -30,8 +30,8 @@ export const fetchTransactions = (url = TRANSACTIONS_API) => async (dispatch) =>
 
   return Promise.all([
     dispatch(updateTransactions(transactions.transactionData.transactions)),
-    // dispatch(updateAccounts(transactions.accounts)),
-    // dispatch(updateCategories(transactions.categories)),
+    dispatch(updateAccounts(transactions.accounts)),
+    dispatch(updateCategories(transactions.categories)),
   ]);
 };
 
