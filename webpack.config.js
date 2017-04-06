@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 
 const baseEntry = [
   'babel-polyfill',
+  'whatwg-fetch',
   './src/index.jsx',
 ];
 const devEntry = [
