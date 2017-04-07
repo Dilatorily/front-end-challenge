@@ -3,12 +3,10 @@ import { render } from 'react-dom';
 import { StyleRoot } from 'radium';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
-import ReactTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './components/App';
 import configureStore from './store';
 
-ReactTapEventPlugin();
 const store = configureStore({});
 const root = document.getElementById('root');
 const renderComponent = Component => render(

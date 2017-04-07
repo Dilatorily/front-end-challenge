@@ -4,13 +4,13 @@ import toLower from 'lodash/toLower';
 const UPDATE_CATEGORIES = 'front-end-challenge/categories/UPDATE_CATEGORIES';
 const RESET_CATEGORIES = 'front-end-challenge/categories/RESET_CATEGORIES';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = { '': 'Uncategorized' };
 
 export default (state = INITIAL_STATE, action = {}) => {
   switch (action.type) {
     case UPDATE_CATEGORIES:
       return {
-        ...state.types,
+        ...state,
         ...action.payload.reduce((categories, category) => ({
           ...categories,
           [category]: startCase(toLower(category)),

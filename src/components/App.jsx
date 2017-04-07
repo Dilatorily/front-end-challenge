@@ -8,7 +8,9 @@ import { fetchTransactions } from '../reducers/transactions';
 const styles = {
   container: {
     height: '100vh',
+    maxWidth: 800,
     overflow: 'hidden',
+    margin: '0 auto',
   },
 };
 
