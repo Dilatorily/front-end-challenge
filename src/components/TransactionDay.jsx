@@ -6,6 +6,7 @@ import TransactionEntry from './TransactionEntry';
 
 const mapStateToProps = (state, props) => ({
   accounts: state.ui.filters.accounts,
+  categories: state.ui.filters.categories,
   transactions: Object.values(state.transactions)
     .filter(transaction => transaction.transactionDate === props.date),
 });
@@ -25,14 +26,17 @@ const styles = {
   },
 };
 
-const TransactionDay = ({ accounts, date, transactions }) => (
+const TransactionDay = ({ accounts, categories, date, transactions }) => (
   <ul style={styles.list}>
     <li style={styles.date} title={format(date, 'MMMM Do, YYYY')}>
       {format(date, 'MMMM Do, YYYY')}
     </li>
     {
       transactions
-        .filter(transaction => accounts.includes(transaction.accountId))
+        .filter(transaction =>
+          accounts.includes(transaction.accountId) &&
+          categories.includes(transaction.category || ''),
+        )
         .map((transaction, index) => {
           const key = `${date}-${index}`;
           return <TransactionEntry key={key} transaction={transaction} />;
@@ -43,6 +47,7 @@ const TransactionDay = ({ accounts, date, transactions }) => (
 
 TransactionDay.propTypes = {
   accounts: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  categories: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   date: React.PropTypes.string.isRequired,
   transactions: React.PropTypes.arrayOf(React.PropTypes.shape({
     accountId: React.PropTypes.string,

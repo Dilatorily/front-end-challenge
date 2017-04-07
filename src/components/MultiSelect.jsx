@@ -55,6 +55,9 @@ const styles = {
     fontSize: 14,
     fontWeight: 300,
   },
+  icon: {
+    minWidth: 13,
+  },
 };
 
 class MultiSelect extends React.Component {
@@ -114,7 +117,10 @@ class MultiSelect extends React.Component {
                   style={[styles.selectButton, selectButtonStyle]}
                   title={option.text}
                 >
-                  <span className={`fa ${value.includes(option.value) ? 'fa-check-square-o' : 'fa-square-o'}`} /> {option.text}
+                  <span
+                    style={styles.icon}
+                    className={`fa ${value.includes(option.value) ? 'fa-check-square-o' : 'fa-square-o'}`}
+                  /> {option.text}
                 </button>
               </li>
             ))

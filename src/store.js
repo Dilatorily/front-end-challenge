@@ -10,7 +10,9 @@ const getEnhancer = () => {
   const middlewares = [...baseMiddlewares, ...(__DEV__ ? devMiddlewares : prodMiddlewares)];
 
   const baseEnhancers = [applyMiddleware(...middlewares)];
-  const devEnhancers = [window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()]; // eslint-disable-line no-underscore-dangle, max-len
+  const devEnhancers = [
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : fn => fn, // eslint-disable-line no-underscore-dangle, max-len
+  ];
   const prodEnhancers = [];
   const enhancers = [...baseEnhancers, ...(__DEV__ ? devEnhancers : prodEnhancers)];
 

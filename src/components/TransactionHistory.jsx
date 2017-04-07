@@ -6,8 +6,8 @@ import toLower from 'lodash/toLower';
 
 import MultiSelect from './MultiSelect';
 import TransactionDay from './TransactionDay';
-import { toggleSort } from '../reducers/ui';
-import { replaceAcronyms } from '../utils';
+import { setAccountFilter, setCategoryFilter, toggleSort } from '../reducers/ui';
+import { pluralize, replaceAcronyms } from '../utils';
 
 const mapStateToProps = state => ({
   accounts: state.accounts,
@@ -15,6 +15,12 @@ const mapStateToProps = state => ({
   filters: state.ui.filters,
   sort: state.ui.sort,
   transactions: Object.values(state.transactions),
+});
+
+const mapDispatchToProps = dispatch => ({
+  setAccountFilter: accounts => dispatch(setAccountFilter(accounts)),
+  setCategoryFilter: categories => dispatch(setCategoryFilter(categories)),
+  toggleSort: () => dispatch(toggleSort()),
 });
 
 const styles = {
@@ -54,6 +60,9 @@ const styles = {
   categories: {
     marginRight: 20,
   },
+  categoriesList: {
+    right: 0,
+  },
   date: {
     margin: 0,
     padding: 0,
@@ -72,6 +81,40 @@ const styles = {
 };
 
 class TransactionHistory extends React.Component {
+  handleAccountChange = (account) => {
+    let accounts = [...this.props.filters.accounts];
+
+    if (accounts.includes(account)) {
+      accounts = accounts.filter(a => a !== account);
+    } else {
+      accounts.push(account);
+    }
+
+    this.props.setAccountFilter(accounts);
+  }
+
+  handleAccountReset = () => {
+    const accounts = Object.keys(this.props.accounts);
+    this.props.setAccountFilter(accounts);
+  }
+
+  handleCategoryChange = (category) => {
+    let categories = [...this.props.filters.categories];
+
+    if (categories.includes(category)) {
+      categories = categories.filter(c => c !== category);
+    } else {
+      categories.push(category);
+    }
+
+    this.props.setCategoryFilter(categories);
+  }
+
+  handleCategoryReset = () => {
+    const categories = Object.keys(this.props.categories);
+    this.props.setCategoryFilter(categories);
+  }
+
   handleDateClick = () => this.props.toggleSort()
 
   render() {
@@ -102,18 +145,38 @@ class TransactionHistory extends React.Component {
     return (
       <div style={styles.container}>
         <div style={styles.header}>
-          <MultiSelect style={styles.accounts} value={filters.accounts} options={accountOptions}>
+          <MultiSelect
+            style={styles.accounts}
+            value={filters.accounts}
+            options={accountOptions}
+            onChange={this.handleAccountChange}
+            onReset={this.handleAccountReset}
+          >
             <div style={styles.buttonHeader}>Showing Transactions</div>
-            <div style={styles.buttonText}>All Accounts <span className="fa fa-caret-down" /></div>
+            <div style={styles.buttonText}>
+              {
+                filters.accounts.length === Object.keys(accounts).length ?
+                'All' :
+                filters.accounts.length
+              } {pluralize('Account', filters.accounts.length)} <span className="fa fa-caret-down" />
+            </div>
           </MultiSelect>
           <MultiSelect
             style={styles.categories}
-            listStyle={{ right: 0 }}
+            listStyle={styles.categoriesList}
             value={filters.categories}
             options={categoryOptions}
+            onChange={this.handleCategoryChange}
+            onReset={this.handleCategoryReset}
           >
             <div style={styles.buttonHeader}>Filter By</div>
-            <div style={styles.buttonText}>All Categories <span className="fa fa-caret-down" /></div>
+            <div style={styles.buttonText}>
+              {
+                filters.categories.length === Object.keys(categories).length ?
+                'All' :
+                filters.categories.length
+              } {pluralize('Category', filters.categories.length)} <span className="fa fa-caret-down" />
+            </div>
           </MultiSelect>
           <button style={styles.date} onClick={this.handleDateClick}>
             <div style={styles.buttonHeader}>Sort By</div>
@@ -127,7 +190,10 @@ class TransactionHistory extends React.Component {
         <div style={styles.transactions}>
           {
             transactions
-              .filter(transaction => filters.accounts.includes(transaction.accountId))
+              .filter(transaction =>
+                filters.accounts.includes(transaction.accountId) &&
+                filters.categories.includes(transaction.category || ''),
+              )
               .map(transaction => transaction.transactionDate)
               .filter((date, index, dates) => dates.indexOf(date) === index)
               .sort((a, b) => {
@@ -161,6 +227,8 @@ TransactionHistory.propTypes = {
     accounts: React.PropTypes.arrayOf(React.PropTypes.string),
     categories: React.PropTypes.arrayOf(React.PropTypes.string),
   }).isRequired,
+  setAccountFilter: React.PropTypes.func.isRequired,
+  setCategoryFilter: React.PropTypes.func.isRequired,
   sort: React.PropTypes.string.isRequired,
   toggleSort: React.PropTypes.func.isRequired,
   transactions: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -168,4 +236,4 @@ TransactionHistory.propTypes = {
   })).isRequired,
 };
 
-export default connect(mapStateToProps, { toggleSort })(Radium(TransactionHistory));
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(TransactionHistory));

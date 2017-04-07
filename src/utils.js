@@ -9,4 +9,23 @@ export const replaceAcronyms = (str) => {
   return results;
 };
 
-export default { replaceAcronyms };
+export const pluralize = (word, quantity = 1) => {
+  if (quantity === 1) {
+    return word;
+  }
+
+  const exceptions = {
+    Category: 'Categories',
+  };
+
+  if (exceptions[word]) {
+    return exceptions[word];
+  }
+
+  return `${word}s`;
+};
+
+export default {
+  pluralize,
+  replaceAcronyms,
+};
