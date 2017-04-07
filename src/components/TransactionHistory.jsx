@@ -25,10 +25,7 @@ const mapDispatchToProps = dispatch => ({
 
 const styles = {
   container: {
-    height: 'calc(100vh - 300px)',
-    '@media only screen and (max-height: 600px)': {
-      height: 'calc(100vh - 200px)',
-    },
+    height: 'calc(100vh - 200px)',
   },
   header: {
     display: 'flex',
@@ -118,6 +115,7 @@ class TransactionHistory extends React.Component {
   handleDateClick = () => this.props.toggleSort()
 
   render() {
+    // TODO: Add skeleton days and skeleton entries when there is no data
     const { accounts, categories, filters, sort, transactions } = this.props;
     const accountOptions = Object.values(accounts).map(account => ({
       value: account.accountId,
@@ -142,6 +140,7 @@ class TransactionHistory extends React.Component {
 
         return 0;
       });
+
     return (
       <div style={styles.container}>
         <div style={styles.header}>
