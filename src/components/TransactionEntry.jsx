@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 
@@ -64,16 +65,16 @@ const TransactionEntry = ({ categories, transaction }) => (
 );
 
 TransactionEntry.propTypes = {
-  categories: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-  transaction: React.PropTypes.shape({
-    accountId: React.PropTypes.string,
-    transactionDate: React.PropTypes.string,
-    description: React.PropTypes.string,
-    amount: React.PropTypes.number,
-    withdrawal: React.PropTypes.number,
-    runningBalance: React.PropTypes.number,
-    category: React.PropTypes.string,
-    transactionId: React.PropTypes.string,
+  categories: PropTypes.objectOf(PropTypes.string).isRequired,
+  transaction: PropTypes.shape({
+    accountId: PropTypes.string,
+    transactionDate: PropTypes.string,
+    description: PropTypes.string,
+    amount: PropTypes.number,
+    withdrawal: PropTypes.number,
+    runningBalance: PropTypes.number,
+    category: PropTypes.string,
+    transactionId: PropTypes.string,
   }).isRequired,
 };
 

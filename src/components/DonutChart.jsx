@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
@@ -75,14 +76,14 @@ const DonutChart = ({ accounts }) => {
 };
 
 DonutChart.propTypes = {
-  accounts: React.PropTypes.objectOf(React.PropTypes.shape({
-    accountId: React.PropTypes.string,
-    institutionName: React.PropTypes.string,
-    accountName: React.PropTypes.string,
-    transitNumber: React.PropTypes.string,
-    accountNumber: React.PropTypes.string,
-    balance: React.PropTypes.number,
-    balanceUpdated: React.PropTypes.string,
+  accounts: PropTypes.objectOf(PropTypes.shape({
+    accountId: PropTypes.string,
+    institutionName: PropTypes.string,
+    accountName: PropTypes.string,
+    transitNumber: PropTypes.string,
+    accountNumber: PropTypes.string,
+    balance: PropTypes.number,
+    balanceUpdated: PropTypes.string,
   })).isRequired,
 };
 

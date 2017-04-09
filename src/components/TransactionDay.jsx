@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
 
@@ -46,18 +47,18 @@ const TransactionDay = ({ accounts, categories, date, transactions }) => (
 );
 
 TransactionDay.propTypes = {
-  accounts: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  categories: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  date: React.PropTypes.string.isRequired,
-  transactions: React.PropTypes.arrayOf(React.PropTypes.shape({
-    accountId: React.PropTypes.string,
-    transactionDate: React.PropTypes.string,
-    description: React.PropTypes.string,
-    amount: React.PropTypes.number,
-    withdrawal: React.PropTypes.number,
-    runningBalance: React.PropTypes.number,
-    category: React.PropTypes.string,
-    transactionId: React.PropTypes.string,
+  accounts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  date: PropTypes.string.isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.shape({
+    accountId: PropTypes.string,
+    transactionDate: PropTypes.string,
+    description: PropTypes.string,
+    amount: PropTypes.number,
+    withdrawal: PropTypes.number,
+    runningBalance: PropTypes.number,
+    category: PropTypes.string,
+    transactionId: PropTypes.string,
   })).isRequired,
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import onClickOutside from 'react-onclickoutside';
 
@@ -132,20 +133,20 @@ class MultiSelect extends React.Component {
 }
 
 MultiSelect.propTypes = {
-  activeListStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  buttonStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  children: React.PropTypes.node,
-  elementStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  listStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  onChange: React.PropTypes.func,
-  onReset: React.PropTypes.func,
-  options: React.PropTypes.arrayOf(React.PropTypes.shape({
-    value: React.PropTypes.string,
-    text: React.PropTypes.string,
+  activeListStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  buttonStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  children: PropTypes.node,
+  elementStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  listStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onChange: PropTypes.func,
+  onReset: PropTypes.func,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string,
+    text: PropTypes.string,
   })).isRequired,
-  selectButtonStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  style: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  value: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  selectButtonStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  value: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 MultiSelect.defaultProps = {

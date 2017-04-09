@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import startCase from 'lodash/startCase';
@@ -24,9 +25,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const styles = {
-  container: {
-    height: 'calc(100vh - 200px)',
-  },
   header: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -72,8 +70,6 @@ const styles = {
   },
   transactions: {
     position: 'relative',
-    height: 'calc(100% - 40px)',
-    overflow: 'auto',
   },
 };
 
@@ -142,7 +138,7 @@ class TransactionHistory extends React.Component {
       });
 
     return (
-      <div style={styles.container}>
+      <div>
         <div style={styles.header}>
           <MultiSelect
             style={styles.accounts}
@@ -212,26 +208,26 @@ class TransactionHistory extends React.Component {
 }
 
 TransactionHistory.propTypes = {
-  accounts: React.PropTypes.objectOf(React.PropTypes.shape({
-    accountId: React.PropTypes.string,
-    institutionName: React.PropTypes.string,
-    accountName: React.PropTypes.string,
-    transitNumber: React.PropTypes.string,
-    accountNumber: React.PropTypes.string,
-    balance: React.PropTypes.number,
-    balanceUpdated: React.PropTypes.string,
+  accounts: PropTypes.objectOf(PropTypes.shape({
+    accountId: PropTypes.string,
+    institutionName: PropTypes.string,
+    accountName: PropTypes.string,
+    transitNumber: PropTypes.string,
+    accountNumber: PropTypes.string,
+    balance: PropTypes.number,
+    balanceUpdated: PropTypes.string,
   })).isRequired,
-  categories: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-  filters: React.PropTypes.shape({
-    accounts: React.PropTypes.arrayOf(React.PropTypes.string),
-    categories: React.PropTypes.arrayOf(React.PropTypes.string),
+  categories: PropTypes.objectOf(PropTypes.string).isRequired,
+  filters: PropTypes.shape({
+    accounts: PropTypes.arrayOf(PropTypes.string),
+    categories: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  setAccountFilter: React.PropTypes.func.isRequired,
-  setCategoryFilter: React.PropTypes.func.isRequired,
-  sort: React.PropTypes.string.isRequired,
-  toggleSort: React.PropTypes.func.isRequired,
-  transactions: React.PropTypes.arrayOf(React.PropTypes.shape({
-    transactionDate: React.PropTypes.string,
+  setAccountFilter: PropTypes.func.isRequired,
+  setCategoryFilter: PropTypes.func.isRequired,
+  sort: PropTypes.string.isRequired,
+  toggleSort: PropTypes.func.isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.shape({
+    transactionDate: PropTypes.string,
   })).isRequired,
 };
 

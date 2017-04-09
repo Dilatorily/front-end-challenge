@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const styles = {
   container: {
@@ -35,8 +36,8 @@ const ChartTooltip = ({ active, payload }) => {
 };
 
 ChartTooltip.propTypes = {
-  active: React.PropTypes.bool,
-  payload: React.PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  active: PropTypes.bool,
+  payload: PropTypes.array, // eslint-disable-line react/forbid-prop-types
 };
 
 ChartTooltip.defaultProps = {
