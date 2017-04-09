@@ -62,7 +62,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.jsx?$/, loader: 'eslint-loader', enforce: 'pre' },
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, options: { babelrc: false, presets: [['env', { modules: false }], 'stage-0', 'react'], plugins: ['react-hot-loader/babel'] } },
       { test: /\.css$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }] },
       { test: /\.(woff2?|ttf|eot|svg)(\?.*)?$/, loader: 'url-loader', options: { limit: 10000 } },
     ],

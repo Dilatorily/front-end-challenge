@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "test": "jest --config=jest.json",
     "prebuild": "rimraf docs",
     "build": "NODE_ENV=production webpack -p",
     "start": "NODE_ENV=development webpack-dashboard -- webpack-dev-server"
@@ -42,6 +43,7 @@
     "eslint-plugin-react": "^6.10.3",
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
+    "jest": "^19.0.2",
     "rimraf": "^2.6.1",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",

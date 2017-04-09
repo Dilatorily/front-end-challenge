@@ -24,8 +24,3 @@ export const pluralize = (word, quantity = 1) => {
 
   return `${word}s`;
 };
-
-export default {
-  pluralize,
-  replaceAcronyms,
-};
