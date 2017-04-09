@@ -30,4 +30,4 @@ export const updateCategories = transactions => ({
     ...transactions.transactionData.transactions.map(transaction => transaction.category),
   ].filter((category, index, categories) => category && categories.indexOf(category) === index),
 });
-export const resetCATEGORIES = () => ({ type: RESET_CATEGORIES });
+export const resetCategories = () => ({ type: RESET_CATEGORIES });
